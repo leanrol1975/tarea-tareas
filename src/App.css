@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  text-align: left;
+  width: 80%;
 }
 
 .App-logo {
@@ -36,3 +37,10 @@
     transform: rotate(360deg);
   }
 }
+
+.bb{margin-top:15px ;margin-left: 15px; float: right;}
+.te{width: 390px;margin-left: 15px;}
+.aaa{background-color: #ccc;}
+.tt{width:350px;margin-left: 1%; margin-top: 1%;}
+.listas{float: right;width: 750px;margin-top: -335px;}
+.cc{margin-left:15px ;}

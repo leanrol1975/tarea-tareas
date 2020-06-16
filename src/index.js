@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './App.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.css';
+import TareasLista from "./componentes/tareaslistado.js"; 
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App  />
+   
   </React.StrictMode>,
   document.getElementById('root')
 );
