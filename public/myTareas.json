@@ -1,0 +1,8 @@
+[
+    {"id":0,"titulo":"prueba de sistema","descripcion":"crear lista de tareas en json","estado":"no terminada"},
+    {"id":1,"titulo":"para el martes","descripcion":"visitar cliente blanqueria","estado":"no terminada"},
+    {"id":2,"titulo":"sabado 04/07","descripcion":"reunion por sistema (pv)","estado":"no terminada"},
+    {"id":3,"titulo":"Leandro","descripcion":"crear lista de tareas","estado":"no terminada"},
+    {"id":4,"titulo":"Leonel","descripcion":"llevar a reparar tv","estado":"no terminada"},
+    {"id":5,"titulo":"Lian (el domingo)","descripcion":"cortar el pasto","estado":"no terminada"}
+]

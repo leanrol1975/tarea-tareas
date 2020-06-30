@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Tareas from './componentes/tareas.js';
-import TareasLista from './componentes/tareaslistado.js';
+import TareasListado from './componentes/tareaslistado.js'
 import TareasTerminadas from './componentes/tareasTerminadas.js'
 
 
@@ -8,121 +8,164 @@ class App extends Component {
 
     constructor(){
     super();
-
-
-     this.state = {nuevatarea: '', estado: '', titulo: ''}
-
     this.state = {
-     
-      tareas: [
-  
-        {id:0, descripcion: 'comprar pintura hoy',estado: 'no terminada',titulo:'pintura'},
-        
-        ]
-  
-  
-  
-  
-     }
-
-
-   // this.state = {value: ''};
-
-    
-    this.handleSubmit = this.handleSubmit.bind(this);
-    
-    this.handleTarea = this.handleTarea.bind(this);
-    this.handleEstado = this.handleEstado.bind(this);
-    this.handleTitulo = this.handleTitulo.bind(this);
-    
+      formValues: {
+          descripcion: '',
+          titulo: '',
+          estado: '',
+          id: null
+      },
+       tareas :[
+       ]
     }
+  //declare global
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChangeForm = this.handleChangeForm.bind(this);
 
- //constructor
-
-    
-  
-    
-
-   
-
-  handleTarea(e) { this.setState({nuevatarea: e.target.value}) }
-  handleEstado(e) { this.setState({estado: e.target.value}) }
-  handleTitulo(e) { this.setState({titulo: e.target.value}) }
-    handleSubmit(event) {
-
-      this.handleIncrement();
-        this.listado();
-        this.listadoDos();
-       
-        event.preventDefault();
-    }
-
-  
+  } //fin constructor 
 
 
-
-
-    handleIncrement = () => {
-
-      const nuevaListaTareas = this.state.tareas; 
-      nuevaListaTareas.push({
-          id: nuevaListaTareas.length,
-          descripcion: this.state.nuevatarea,
-          estado:  this.state.estado,
-          titulo: this.state.titulo
-      })
-
-      this.setState({ tareas: nuevaListaTareas});
-
-      console.log( this.state.tareas );
+//seteo tareas desde json alocalStorage
+componentDidMount(){
+  if (localStorage.getItem("tareas") === null) {
+    this.getMyTareas();
+  } else {
+    let tareas = localStorage.getItem("tareas")
+    this.setState({ tareas: JSON.parse(tareas) })
   }
-
-  handlePasarPendientes = () => {
-
-    const nuevaListaPendientes = this.state.tareas.filter(t => t.estado == 'no terminada');
-   this.setState({ tareasPendientes: nuevaListaPendientes});
-    console.log( this.state.tareasPendientes);
 }
 
 
 
-listado = () => this.state.tareas.filter(tarea => tarea.estado == 'no terminada')
-listadoDos = () => this.state.tareas.filter(tarea => tarea.estado == 'terminada')
+//nombres de los inputs
+ handleChangeForm(e) {
+  const { name, value } = e.target;
+  this.setState( {
+      formValues: {
+          ...this.state.formValues ,
+          [name] : value
+      }
+  })
+}
+  
+handleClick(e){}
+
+//agrego elementos a la lista
+handlAgregar = ( parametro ) => {
+if(this.state.formValues.id){
+    //this.handleEditar();
+   alert('editando');
+}
+else
+{
+  if(this.state.formValues.descripcion === '' ){
+
+     alert('la trea no tiene descripcion !!!')
+  }
+  else{
+    const nuevalistaTareas = this.state.tareas; 
+    nuevalistaTareas.push({
+        id: nuevalistaTareas.length,
+        titulo: this.state.formValues.titulo,
+        descripcion:  this.state.formValues.descripcion,
+        estado: 'no terminada'
+    })
+    this.setState({ tareas: nuevalistaTareas});
+    console.log( this.state.tareas );
+      }
+      //para vaciar los input (consultar si esta bien...)
+      this.setState({
+        formValues:{
+           titulo: '',
+           descripcion: ''
+        },
+     })
+    }
+}
+    
+
+//tareas filtradas por estado  
+listaA = () => this.state.tareas.filter(t => t.estado ==='no terminada');
+listaB = () => this.state.tareas.filter(t => t.estado ==='terminada');
+
+//para seleccionar y editar
+handleEditar= (dato) =>{
+this.setState({
+
+   formValues:{
+      titulo: dato.titulo,
+      descripcion: dato.descripcion,
+      estado: dato.estado,
+      id: dato.id,
+     
+   },
+ 
+})
+
+}
+
+
+//para cambiar estado y terminar
+handleCambiarEstado = (dato) =>{
+    alert("La tarea nro." + dato.id + "   fue finalazada! ");
+    let num = dato.id;
+    this.state.tareas.splice(num, 1 ,{id: num, titulo: dato.titulo,descripcion: dato.descripcion, estado:'terminada'});
+    console.log(this.state.tareas);
+
+ this.setState({
+
+  formValues:{
+     titulo: '',
+     descripcion: ''
+    
+    
+  },
+
+})
+
+}
+//leemos json
+getMyTareas = async () => {
+const respuesta = await fetch("http://localhost:3000/myTareas.json");
+const archivo = await respuesta.json()
+this.setState({tareas : archivo});
+this.tareas.forEach(element => {
+  this.setState.localStorage.setItem('tareas', JSON.stringify(archivo));
+});
+}
+
+
+//pruebo localstorage en consola
+handleleerStorage = () =>{
+  const consultar = JSON.parse(localStorage.getItem("tareas"));
+  console.log(consultar);
+}
+
 
 
 render(){
   return (
+    
     <div className="App">
-      <div class="tt card">
-   <form onSubmit={this.handleSubmit}>
- 
-   <div class="card-body">
-   <h4 class="card-title">Nueva Tarea</h4>
-   <p class="card-text">Titulo:</p>
-    <input type="text" class="form form-control  input-sm" name="titulo" value={this.state.value} onChange={this.handleTitulo} placeholder="Titulo"/>
-    <p class="card-text">Descripcion de la tarea:</p>
-    <input type="text" class="form form-control  input-sm" name="nuevatarea" value={this.state.value} onChange={this.handleTarea} placeholder="Descripcion"/>
-    <p class="card-text">Estado:</p>
-  <select class="form form-control input-sm"name="estado" value={this.state.value} onChange={this.handleEstado}placeholder="Estado">ESTADO
-  <option>estado</option>
-  <option>no terminada</option>
-  <option>terminada</option>
   
-  </select> 
-  <input type="submit" class="btn btn-success bb" value="Guardar tarea" />
-  </div>
-  </form>
+      <Tareas
+                    AddTarea={ this.handlAgregar }
+                    formValues={this.state.formValues}
+                    handleChange={ this.handleChangeForm }
+                    
+                />
+                
+       
+                 
+     <TareasListado titulo={"Tareas no terminadas"}
+      lista={this.listaA()}
+      editamos={this.handleEditar}
+      termina ={this.handleCambiarEstado}
      
-     </div>
-
-     <div class="listas"> 
-
-     <TareasLista titulo="Tareas No Terminadas!" tareas={this.listado()}/>
-     <TareasLista titulo="Tareas Terminadas!" tareas={this.listadoDos()}/>
-
-
-     </div>
-    </div>//className
+      />
+     <TareasTerminadas titulo="Tareas terminadas" lista2={this.listaB()}/>
+   
+    </div>//App
     
   );
    }

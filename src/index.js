@@ -5,7 +5,7 @@ import './App.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
-import TareasLista from "./componentes/tareaslistado.js"; 
+
 
 
 ReactDOM.render(
