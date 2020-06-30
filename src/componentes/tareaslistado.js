@@ -11,12 +11,15 @@ super(props);
 
 
 
-// editamos
-Editar = ( dato ) =>{
-   this.props.editamos( dato );   
+// elegimos
+Selecciono = ( dato ) =>{
+   this.props.seleccionamos( dato );   
    
   }
-  
+  Editando = ( dato ) =>{
+    this.props.editamos( dato );   
+    
+   }
   Terminar = (dato) =>{
     this.props.termina( dato );   
     //alert("se termino la trea");
@@ -43,7 +46,7 @@ Editar = ( dato ) =>{
 <h4 className="card-title vv">{dato.id} - {dato.titulo}</h4>
       
        <input type="text" className="form-control"value={dato.descripcion}/>&nbsp;&nbsp;
-       <button className="btn btn-info boton2" onClick={() => this.Editar(dato)}>select</button>&nbsp;
+       <button className="btn btn-info boton2" onClick={() => this.Selecciono(dato)}>select</button>&nbsp;
         <button className="btn btn-danger boton2" onClick={() => this.Terminar(dato)}>Terminar</button>&nbsp;
         
       </div>
