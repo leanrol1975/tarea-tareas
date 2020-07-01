@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Tareas from './componentes/tareas.js';
 import TareasListado from './componentes/tareaslistado.js'
 import TareasTerminadas from './componentes/tareasTerminadas.js'
-
+const img2 = require('./nota.png');
 
 class App extends Component {
 
@@ -160,7 +160,8 @@ render(){
   return (
     
     <div className="App">
-  
+
+ 
       <Tareas
                     AddTarea={ this.handlAgregar }
                     formValues={this.state.formValues}
@@ -168,7 +169,7 @@ render(){
                     
                 />
                 
-       
+                <img src={img2} whidth="25" height="35" />&nbsp;&nbsp;        
      <a href='#'className='' onClick={this.handleleerStorage}>Leer localStorage ( consola )</a>         
      <TareasListado titulo={"Tareas no terminadas"}
       lista={this.listaA()}

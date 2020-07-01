@@ -14,6 +14,10 @@ handleSubmit(e) {
     this.props.AddTarea();
 }
 
+
+//editamos una tarea
+
+
  render(){
     
     const { handleChange, formValues } = this.props ;
@@ -24,7 +28,7 @@ handleSubmit(e) {
             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-3 col-xs-12 card">
 
                 <form onSubmit={ this.handleSubmit } className="form-group">
-                <h2>Ingreso de tareas</h2>
+                <h3>Ingreso de tareas&nbsp;&nbsp;</h3>
                     <label>Titulo</label>
                     <input name="titulo" className="form-control"onChange={ handleChange } value={ titulo} type="text"></input>
                     <label>Descripcion</label>
