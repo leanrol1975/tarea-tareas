@@ -27,12 +27,12 @@ class App extends Component {
 
 //seteo tareas desde json a localStorage
 componentDidMount(){
-  if (localStorage.getItem("tareas") === null) {
+  //if (localStorage.getItem("tareas") === null) {
     this.getMyTareas();
-  } else {
-    let tareas = localStorage.getItem("tareas")
-    this.setState({ tareas: JSON.parse(tareas) })
-  }
+  //} else {
+   // let tareas = localStorage.getItem("tareas")
+    //this.setState({ tareas: JSON.parse(tareas) })
+ // }
 }
 
 
@@ -73,6 +73,7 @@ else
     })
     this.setState({ tareas: nuevalistaTareas});
     console.log( this.state.tareas );
+    localStorage.setItem("tareas", JSON.stringify(this.tareas));
       }
       //para vaciar los input (consultar si esta bien...)
       this.setState({
@@ -141,10 +142,9 @@ getMyTareas = async () => {
 const respuesta = await fetch("http://localhost:3000/myTareas.json");
 const archivo = await respuesta.json()
 this.setState({tareas : archivo});
+localStorage.setItem('tareas', JSON.stringify(archivo));
 
-this.tareas.forEach(no_lo_uso => {
-  this.setState.localStorage.setItem('tareas', JSON.stringify(archivo));
-  });
+
 }
 
 
